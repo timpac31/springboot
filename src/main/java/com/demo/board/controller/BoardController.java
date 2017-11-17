@@ -32,7 +32,7 @@ public class BoardController {
 	@Autowired
 	private FreeBoardFileController fileController;
 	
-	@ModelAttribute("boardVO")
+	@ModelAttribute("boardVO")	
 	public BoardVO boardVO() {
 		return new BoardVO();
 	}
