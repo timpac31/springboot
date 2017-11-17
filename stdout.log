@@ -1,0 +1,5 @@
+▶ INFO  15:05:50.067 [main] com.demo.DemoApplication[logStarting:48] - Starting DemoApplication on gangseo with PID 10200 (D:\sts-bundle\sts-3.8.4.RELEASE\workspace\demo\target\classes started by jyd in D:\sts-bundle\sts-3.8.4.RELEASE\workspace\demo)
+▶ INFO  15:05:50.067 [main] com.demo.DemoApplication[logStartupProfileInfo:593] - No active profile set, falling back to default profiles: default
+▶ WARN  15:05:50.504 [main] org.mybatis.spring.mapper.ClassPathMapperScanner[doScan:167] - No MyBatis mapper was found in '[com.demo]' package. Please check your configuration.
+▶ INFO  15:05:52.168 [main] com.demo.DemoApplication[logStarted:57] - Started DemoApplication in 2.288 seconds (JVM running for 2.736)
+▶ INFO  15:05:56.924 [http-nio-8080-exec-1] com.demo.board.controller.BoardController[selectBoardList:32] - startRow: 1 endRow: 5

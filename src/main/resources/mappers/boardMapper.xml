@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+ 
+<mapper namespace="mappers.boardMapper">
+
+	<select id="boardCount" parameterType="PageVO" resultType="Integer">
+		select count(*) from BOARD
+		<if test="searchType != ''">
+			<if test = "searchType == 'name'">where name = #{keyword}</if>
+			<if test = "searchType == 'title'">where title like '%'|| #{keyword} ||'%'</if>			
+       	</if>
+	</select>
+ 
+    <select id="boardList" parameterType="PageVO" resultType="BoardVO">
+    	select * from ( select A.*, ROWNUM as rnum from (
+			select * from BOARD
+			<if test="searchType != ''">
+				<if test = "searchType == 'name'">where name = #{keyword}</if>
+				<if test = "searchType == 'title'">where title like '%'|| #{keyword} ||'%'</if>			
+       		</if>
+			order by seq
+		<![CDATA[
+		) A  where ROWNUM <= #{endRow}) X where rnum >= #{startRow}
+		]]>                
+    </select>
+    
+    <select id="detail" parameterType="Integer" resultType="BoardVO">
+    	select seq, name, email, homepage, title, filename, type, filesize, passwd, content, nowdate  
+    	from BOARD where seq = #{seq}
+    </select>
+    
+    <insert id="insert" parameterType="BoardVO">
+    	<selectKey keyProperty="seq" resultType="int" order="BEFORE">
+    		select nvl(max(seq), 1) + 1 from BOARD
+    	</selectKey>
+    	insert into BOARD(SEQ, RE_GR, RE_LEVEL ,RE_SORT ,NAME ,EMAIL ,HOMEPAGE ,TITLE, FILENAME, TYPE, FILESIZE, PASSWD, CONTENT, NOWDATE, DN, ACS)
+    	values(
+    		#{seq}, #{re_gr, jdbcType=INTEGER}, #{re_level, jdbcType=INTEGER}, #{re_sort, jdbcType=INTEGER}, #{name}, #{email}, #{homepage, jdbcType=VARCHAR}, 
+    		#{title}, #{filename, jdbcType=VARCHAR}, #{type, jdbcType=VARCHAR}, #{filesize, jdbcType=INTEGER}, #{passwd},
+    		#{content}, sysdate, #{dn, jdbcType=INTEGER}, #{acs, jdbcType=INTEGER}
+    	)
+    </insert>
+    
+    <update id="update" parameterType="BoardVO">
+    	update BOARD
+    	<set>
+    		<if test="name != null">name = #{name},</if>
+    		<if test="email != null">email = #{email},</if>
+    		<if test="homepage != null">homepage = #{homepage},</if>
+    		<if test="title != null">title = #{title},</if>
+    		<if test="filename != null">filename = #{filename},</if>
+    		<if test="type != null">type = #{type},</if>
+    		<if test="filesize != null">filesize = #{filesize},</if>
+    		<if test="content != null">content = #{content},</if>
+    		NOWDATE = sysdate
+    	</set>
+    	where seq = #{seq}
+    </update>
+ 
+</mapper>
+

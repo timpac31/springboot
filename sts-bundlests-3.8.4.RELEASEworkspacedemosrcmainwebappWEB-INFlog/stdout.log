@@ -1,0 +1,29 @@
+▶ ERROR 15:58:12.740 [main] org.springframework.boot.SpringApplication[reportFailure:771] - Application startup failed
+java.lang.IllegalStateException: Logback configuration error detected: 
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@17:83 - no applicable action for [rollingPolicy], current ElementPath  is [[configuration][appender][rollingPolicy]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@18:28 - no applicable action for [fileNamePattern], current ElementPath  is [[configuration][appender][rollingPolicy][fileNamePattern]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@19:23 - no applicable action for [maxHistory], current ElementPath  is [[configuration][appender][rollingPolicy][maxHistory]]
+	at org.springframework.boot.logging.logback.LogbackLoggingSystem.loadConfiguration(LogbackLoggingSystem.java:162)
+	at org.springframework.boot.logging.logback.LogbackLoggingSystem.reinitialize(LogbackLoggingSystem.java:208)
+	at org.springframework.boot.logging.AbstractLoggingSystem.initializeWithConventions(AbstractLoggingSystem.java:74)
+	at org.springframework.boot.logging.AbstractLoggingSystem.initialize(AbstractLoggingSystem.java:59)
+	at org.springframework.boot.logging.logback.LogbackLoggingSystem.initialize(LogbackLoggingSystem.java:115)
+	at org.springframework.boot.logging.LoggingApplicationListener.initializeSystem(LoggingApplicationListener.java:303)
+	at org.springframework.boot.logging.LoggingApplicationListener.initialize(LoggingApplicationListener.java:276)
+	at org.springframework.boot.logging.LoggingApplicationListener.onApplicationEnvironmentPreparedEvent(LoggingApplicationListener.java:239)
+	at org.springframework.boot.logging.LoggingApplicationListener.onApplicationEvent(LoggingApplicationListener.java:212)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:167)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:139)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:122)
+	at org.springframework.boot.context.event.EventPublishingRunListener.environmentPrepared(EventPublishingRunListener.java:74)
+	at org.springframework.boot.SpringApplicationRunListeners.environmentPrepared(SpringApplicationRunListeners.java:54)
+	at org.springframework.boot.SpringApplication.prepareEnvironment(SpringApplication.java:325)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:296)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1118)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1107)
+	at com.demo.DemoApplication.main(DemoApplication.java:10)
+▶ INFO  16:00:59.789 [main] com.demo.DemoApplication[logStarting:48] - Starting DemoApplication on gangseo with PID 9800 (D:\sts-bundle\sts-3.8.4.RELEASE\workspace\demo\target\classes started by jyd in D:\sts-bundle\sts-3.8.4.RELEASE\workspace\demo)
+▶ INFO  16:00:59.791 [main] com.demo.DemoApplication[logStartupProfileInfo:593] - No active profile set, falling back to default profiles: default
+▶ WARN  16:01:00.235 [main] org.mybatis.spring.mapper.ClassPathMapperScanner[doScan:167] - No MyBatis mapper was found in '[com.demo]' package. Please check your configuration.
+▶ INFO  16:01:01.872 [main] com.demo.DemoApplication[logStarted:57] - Started DemoApplication in 2.268 seconds (JVM running for 2.714)
+▶ INFO  16:01:11.448 [http-nio-8080-exec-2] com.demo.board.controller.BoardController[selectBoardList:32] - startRow: 1 endRow: 5

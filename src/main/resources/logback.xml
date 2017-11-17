@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+	<!-- console로 log 남기기 -->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>
+                ▶ %-5level %d{HH:mm:ss.SSS} [%thread] %logger[%method:%line] - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+	<!-- file로 log 일별 남기기 --> 
+	<!-- 
+    <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>D:\sts-bundle\sts-3.8.4.RELEASE\workspace\demo\src\main\webapp\WEB-INF\log\stdout.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        	 <fileNamePattern>D:\sts-bundle\sts-3.8.4.RELEASE\workspace\demo\src\main\webapp\WEB-INF\log\stdout.%d{yyyy-MM-dd}.log</fileNamePattern>
+        	 <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>
+                ▶ %-5level %d{HH:mm:ss.SSS} [%thread] %logger[%method:%line] - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+	 -->
+           
+    <!-- 이 아래에 있는 애들 다 log로 찍겠다. -->
+    <logger name="com.demo" level="info" />
+    <root level="info">
+        <appender-ref ref="console" />
+        <!-- <appender-ref ref="file" /> -->
+    </root>
+        
+</configuration>
