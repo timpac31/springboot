@@ -7,7 +7,7 @@
 
 .table-default {border-top: 2px solid #333333; width:100%;}
 .table-default th{height: 45px; border-bottom: 1px solid #c9c9c9; color: #111111; font-size: 14px;}
-.table-default td{text-align: center; border-bottom: 1px solid #c9c9c9;  color: #111111; font-size: 14px; height: 30px;}
+.table-default td{ border-bottom: 1px solid #c9c9c9;  color: #111111; font-size: 14px; height: 30px;}
 .table-default td.left{text-align: left; padding-left:10px;}
 .table-default td a{color: #111111;}
 
@@ -26,9 +26,8 @@
 .bbsview td { padding: 4px 5px 3px 5px; border-top: 1px solid #E0E0E0; background: #fff; text-align: left;}
 .bbsview td:nth-child(1) {background: #f3eafb;}
 
-.buttonWrapper {float: right;}
 
-.paging { text-align:center; }
+#footer { background:#e6e6e6; padding:20px; }
 
 
 .security-login { text-align:center; border:1px solid; width: 300px; background: #e4e4e8; }
