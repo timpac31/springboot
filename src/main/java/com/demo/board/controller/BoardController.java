@@ -112,5 +112,10 @@ public class BoardController {
 		return "boardView";
 	}
 	
+	@RequestMapping(value="/tilestest.do")
+	public String view() {
+		return "tilestest";
+	}
+	
 
 }

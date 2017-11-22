@@ -2,41 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
-<!DOCTYPE html>
-<html class="no-js">
-<head>
-<meta charset="utf-8">
-<meta http-equiv="x-ua-compatible" content="ie=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>목록</title>
-<link rel="stylesheet" href="/css/style.css">
-<link rel="stylesheet" href="/css/foundation.min.css">
-</head>
-<body>
-	
-	<!-- top menu bar -->
-	<div class="top-bar" id="responsive-menu">
-		<div class="top-bar-left">
-			<ul class="dropdown menu" data-dropdown-menu>
-				<li class="menu-text">My Blog</li>
-				<li class="has-submenu"><a href="/board/list.do">Board</a>
-					<ul class="submenu menu vertical" data-submenu>
-						<li><a href="/board/list.do">FreeBoard</a></li>
-						<li><a href="#0">QnA</a></li>
-					</ul></li>
-				<li><a href="#0">menu1</a></li>
-				<li><a href="#0">About</a></li>
-			</ul>
-		</div>
-		<div class="top-bar-right">
-			<ul class="menu">
-				<li><input type="text" placeholder="ID"></li>
-				<li><input type="text" placeholder="Password"></li>
-				<li><button class="button">Login</button></li>
-			</ul>
-		</div>
-	</div><!-- top menu bar end-->	
-
+	<head><title>목록</title></head>
 
 	<!-- contents body -->
 	<div class="grid-container fluid">
@@ -91,7 +57,7 @@
 		
 		<div class="grid-x align-center">		
 			<ul class="pagination text-center" role="navigation" aria-label="Pagination">
-				<c:if test="${page.startNo != 1}"><li class="pagination-previous"><a href="javascript:goPage(${page.startNo-1})">Previous</a></li></c:if>
+				<c:if test="${page.startNo != 1 }"><li class="pagination-previous"><a href="javascript:goPage(${page.startNo-1})">Previous</a></li></c:if>
 				<c:forEach var="i" begin="${page.startNo }" end="${page.endNo }">
 					<c:choose>
 		               <c:when test="${i eq page.pageNo}"><li class="current"><a href="javascript:goPage(${i})">${i}</a></li></c:when>
@@ -107,19 +73,10 @@
 			</div>
 		</div>
 
-	</div><!-- contents body end -->
+	</div>
+	<!-- contents body end -->
 	
-	<!-- footer -->
-	<div class="grid-x grid-padding-x align-center" id="footer">
-		<em>all right reserved ydcho@futechsoft.com</em>
-	</div><!-- footer end -->
-	
-	
-	
-<script src="/js/jquery-1.11.1.min.js"></script>
-<script src="/js/what-input.js"></script>
-<script src="/js/foundation.min.js"></script>
-<script src="/js/app.js"></script>	
+		
 <script>
 	$(function(){
 		$('select[name=searchType]').val('${page.searchType}');
@@ -141,6 +98,3 @@
 		}
 	}
 </script>
-	
-</body>
-</html>
