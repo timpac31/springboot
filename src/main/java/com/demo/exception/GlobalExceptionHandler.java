@@ -2,6 +2,7 @@ package com.demo.exception;
 
 import java.sql.SQLException;
 
+import javax.naming.SizeLimitExceededException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.demo.util.StringUtil;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -39,6 +42,8 @@ public class GlobalExceptionHandler {
 			throw ex;
 		
 		logger.info(request.getRequestURL() + " BoardSQLException: " + ex.getMessage());
+		ex.printStackTrace();
+		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("msg", "등록에 실패했습니다.");
 	    mav.addObject("url", "/board/list.do");
@@ -46,6 +51,29 @@ public class GlobalExceptionHandler {
 		return mav;
 	}
 	
+	@ExceptionHandler(InvalidFileException.class)
+	public ModelAndView handleInvalidFileException(HttpServletRequest request, Exception ex) throws Exception {
+		logger.info(request.getRequestURL() + " InvalidFileException: " + ex);
+		ex.printStackTrace();
+		
+		String referer = StringUtil.nvl(request.getHeader("Referer"), "/board/list.do");
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("msg", ex.getMessage());
+	    mav.addObject("url", referer);
+		mav.setViewName(REDIRECT_ERROR_VIEW);
+		return mav;
+	}
+	
+	@ExceptionHandler(SizeLimitExceededException.class)
+	public ModelAndView HandleFileUploadException(HttpServletRequest request, Exception ex) throws Exception {
+		logger.info(request.getRequestURL() + " FileUploadException: " + ex);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("error", ex);
+	    mav.addObject("url", "file upload error");
+		mav.setViewName(DEFAULT_ERROR_VIEW);
+		return mav;
+	}
 	
 	
 }

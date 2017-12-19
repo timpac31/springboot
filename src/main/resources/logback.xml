@@ -10,6 +10,7 @@
         </encoder>
     </appender>
 
+
 	<!-- file로 log 일별 남기기 --> 
 	<!-- 
     <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">

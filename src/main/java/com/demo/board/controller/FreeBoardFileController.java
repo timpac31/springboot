@@ -14,6 +14,7 @@ import java.nio.file.Paths;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.tomcat.util.http.fileupload.FileUploadBase.SizeLimitExceededException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.demo.common.FileController;
+import com.demo.exception.InvalidFileException;
 
 @Controller
 public class FreeBoardFileController implements FileController {
@@ -29,10 +31,37 @@ public class FreeBoardFileController implements FileController {
 	
 	private static final String FILE_PATH = "D:\\file\\";
 	
+	/** 허용 확장자, 파일 크기 제한 검증 */
+	private void Validate(MultipartFile file) {
+		boolean valid = false;
+		String[] allowedExtention = {"ai","bmp","jpg","jpeg","png","gif","doc","hwp","mp3","pcx","pdf","ppf","ppt","psd","text","txt","wmv","xls","zip"};
+		String filename = file.getOriginalFilename();
+		String extention = filename.substring(filename.lastIndexOf(".") + 1);
+		for(int i=0; i<allowedExtention.length; i++){
+			if(allowedExtention[i].equalsIgnoreCase(extention))
+				valid = true;
+		}
+		
+		if(!valid) {
+			throw new InvalidFileException("허용되지 않은 파일이 첨부되었습니다.");
+		}
+		
+		int maxSize = 30 * 1024 * 1024;
+		if(file.getSize() > maxSize) {
+			throw new InvalidFileException("파일 크기 제한(30M) 초과");
+		}
+	}
+	
 	@Override
-	public void singleFileUpload(MultipartFile file) throws IOException {
-		Files.createDirectories(Paths.get(FILE_PATH));
-        Files.write(Paths.get(FILE_PATH + file.getOriginalFilename()),  file.getBytes());
+	public void singleFileUpload(MultipartFile file) {
+		Validate(file);		
+		try {
+			Files.createDirectories(Paths.get(FILE_PATH));
+	        Files.write(Paths.get(FILE_PATH + file.getOriginalFilename()),  file.getBytes());
+		}catch (IOException e) {
+			e.printStackTrace();
+			logger.info(e.getMessage());
+		}
 	}
 
 	@Override

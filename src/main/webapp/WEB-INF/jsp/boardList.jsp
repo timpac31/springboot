@@ -75,7 +75,6 @@
 
 	</div>
 	<!-- contents body end -->
-	
 		
 <script>
 	$(function(){

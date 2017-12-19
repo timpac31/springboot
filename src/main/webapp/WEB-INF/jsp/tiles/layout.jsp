@@ -8,6 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="/css/style.css">
 <link rel="stylesheet" href="/css/foundation.min.css">
+<script src="/js/jquery-1.11.1.min.js"></script>
 </head>
 <body>
 	<tiles:insertAttribute name="header" />

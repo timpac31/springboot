@@ -29,9 +29,12 @@
 			</table>
 			
 			<div class="button-group align-right">
-				<button type="button" class="button secondary" onclick="javascript:location.href='/board/list.do'">목록</button><button class="button">수정</button>
+				<button type="button" class="button secondary" onclick="javascript:location.href='/board/list.do'">목록</button>
+				<button class="button">수정</button>
 			</div>
 			</form:form>	
 		</div>
 	</div>
 	<!-- contents body end -->
+	
+

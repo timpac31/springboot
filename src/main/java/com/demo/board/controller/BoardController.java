@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.demo.board.domain.BoardVO;
@@ -23,19 +24,13 @@ import com.demo.exception.BoardSQLException;
 import com.demo.util.StringUtil;
 
 @Controller
-@SessionAttributes("boardVO")
 public class BoardController {
 	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
-	
+		
 	@Autowired
 	private BoardService boardService;
 	@Autowired
 	private FreeBoardFileController fileController;
-	
-	@ModelAttribute("boardVO")	
-	public BoardVO boardVO() {
-		return new BoardVO();
-	}
 	
 	@RequestMapping("/board/list.do")
 	public String selectBoardList(Model model, @ModelAttribute PageVO pageVO) {
@@ -59,42 +54,44 @@ public class BoardController {
 	}
 	
 	@RequestMapping("/board/write.do")
-	public String insertBoard(Model model, @ModelAttribute BoardVO boardVO, @RequestParam("file") MultipartFile file) throws BoardSQLException {
+	public String insertBoard(Model model, @ModelAttribute BoardVO boardVO, @RequestParam("file") MultipartFile file) 
+			throws BoardSQLException, Exception {
+		if(!file.isEmpty()) {
+			fileController.singleFileUpload(file);			
+			boardVO.setFilename(file.getOriginalFilename());
+			boardVO.setFilesize(file.getSize());
+			boardVO.setType(StringUtil.getExtension(file.getOriginalFilename()));
+		}
+		
 		try {
-			if(!file.isEmpty()) {
-				fileController.singleFileUpload(file);
-				boardVO.setFilename(file.getOriginalFilename());
-				boardVO.setFilesize(file.getSize());
-				boardVO.setType(StringUtil.getExtension(file.getOriginalFilename()));
-			}
-			
 			boardService.insertBoard(boardVO);
 		} catch (Exception e) {	
 			throw new BoardSQLException(e);
 		}
 
 		model.addAttribute("msg", "등록 되었습니다.");
-		model.addAttribute("url", "/board/list.do");
+		model.addAttribute("url", "/board/list.do");		
 		return "redirect";
 	}
 	
 	@RequestMapping("/board/modifyForm.do")
 	public String modifyForm(Model model, @ModelAttribute BoardVO boardVO) {
-		//boardVO = boardService.selectBoardDetail(boardVO.getSeq());		
-		//model.addAttribute("boardVO", boardVO);
+		boardVO = boardService.selectBoardDetail(boardVO.getSeq());		
+		model.addAttribute("boardVO", boardVO);
 		return "boardModify";
 	}
 	
 	@RequestMapping("/board/modify.do")
-	public String modifyBoard(Model model, @ModelAttribute BoardVO boardVO, @RequestParam("file") MultipartFile file) throws BoardSQLException {
-		try {
-			if(!file.isEmpty()) {
-				fileController.singleFileUpload(file);
-				boardVO.setFilename(file.getOriginalFilename());
-				boardVO.setFilesize(file.getSize());
-				boardVO.setType(StringUtil.getExtension(file.getOriginalFilename()));
-			}
-			
+	public String modifyBoard(Model model, @ModelAttribute BoardVO boardVO, @RequestParam("file") MultipartFile file) 
+			throws BoardSQLException {		
+		if(!file.isEmpty()) {
+			fileController.singleFileUpload(file);
+			boardVO.setFilename(file.getOriginalFilename());
+			boardVO.setFilesize(file.getSize());
+			boardVO.setType(StringUtil.getExtension(file.getOriginalFilename()));
+		}
+		
+		try {	
 			boardService.modifyBoard(boardVO);
 		} catch (Exception e) {
 			throw new BoardSQLException(e);
@@ -112,10 +109,6 @@ public class BoardController {
 		return "boardView";
 	}
 	
-	@RequestMapping(value="/tilestest.do")
-	public String view() {
-		return "tilestest";
-	}
 	
 
 }
