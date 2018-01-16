@@ -33,7 +33,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <insert id="insert" parameterType="BoardVO">
     	<selectKey keyProperty="seq" resultType="int" order="BEFORE">
-    		select nvl(max(seq), 1) + 1 from BOARD
+    		select nvl(max(seq), 0) + 1 from BOARD
     	</selectKey>
     	insert into BOARD(SEQ, RE_GR, RE_LEVEL ,RE_SORT ,NAME ,EMAIL ,HOMEPAGE ,TITLE, FILENAME, TYPE, FILESIZE, PASSWD, CONTENT, NOWDATE, DN, ACS)
     	values(
@@ -58,6 +58,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	</set>
     	where seq = #{seq}
     </update>
+    
+    <insert id="insertReply" parameterType="BoardReplyVO">
+    	<selectKey keyProperty="seq" resultType="int" order="BEFORE">
+    		select nvl(max(seq), 0) + 1 from BOARD_REPLY
+    	</selectKey>
+    	insert into BOARD_REPLY(seq, reply_seq, name, content, regdate)
+    	values( #{seq}, #{reply_seq}, #{name}, #{content}, sysdate )
+    </insert>
+    
+    <select id="selectReplyList" parameterType="Integer" resultType="BoardReplyVO">
+    	SELECT * FROM board_reply WHERE reply_seq = #{seq} ORDER BY regdate 
+    </select>
  
 </mapper>
 

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.demo.board.domain.BoardReplyVO;
 import com.demo.board.domain.BoardVO;
 import com.demo.board.domain.PageVO;
 import com.demo.board.service.BoardService;
@@ -103,12 +104,28 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/board/view.do", method=RequestMethod.GET)
-	public String view(Model model, @RequestParam int seq, BoardVO boardVO) {
+	public String view(Model model, @RequestParam int seq, BoardVO boardVO, BoardReplyVO boardReplyVO) {
 		boardVO = boardService.selectBoardDetail(seq);
+		List<BoardReplyVO> replyList = boardService.selectReplyList(seq);
+		
 		model.addAttribute("boardVO", boardVO);
+		model.addAttribute("replyList", replyList);
 		return "boardView";
 	}
 	
+	@RequestMapping("/board/writeReply.do")
+	public String writeReply(Model model, BoardReplyVO boardReplyVO) throws BoardSQLException {
+		try {
+			boardService.insertReply(boardReplyVO);
+		}catch(Exception e) {
+			throw new BoardSQLException(e);
+		}
+		return "redirect:/board/view.do?seq=" + boardReplyVO.getReply_seq();
+	}
 	
 
 }
+
+
+
+

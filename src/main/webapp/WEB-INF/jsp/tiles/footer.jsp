@@ -1,6 +1,6 @@
 <!-- footer -->
 	<div class="grid-x grid-padding-x align-center" id="footer">
-		<em>all right reserved ydcho@futechsoft.com</em>
+		<em>all right reserved jyd</em>
 	</div>
 	
 

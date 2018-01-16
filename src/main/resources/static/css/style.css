@@ -29,3 +29,9 @@
 
 
 .security-login { text-align:center; border:1px solid; width: 300px; background: #e4e4e8; }
+
+/*reply*/
+.reply-group {  margin-left: 0px; list-style: none; border: 1px solid #e6e6e6; }
+.reply-group .reply-head {background-color: #e6e6e6e6; font-weight: bold; padding: 3px 10px;}
+.reply-group li { border-bottom: 1px solid #e6e6e6; padding: 10px;}
+.reply-group h5 span { color: #8a8a8a; margin-left:20px; font-size:13px; }

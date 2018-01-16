@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.demo.board.dao.BoardDAO;
+import com.demo.board.domain.BoardReplyVO;
 import com.demo.board.domain.BoardVO;
 import com.demo.board.domain.PageVO;
 
@@ -33,6 +34,14 @@ public class BoardService {
 
 	public int modifyBoard(BoardVO boardVO) throws Exception {
 		return boardDao.modifyBoard(boardVO);
+	}
+
+	public void insertReply(BoardReplyVO boardReplyVO) throws Exception {
+		boardDao.insertReply(boardReplyVO);
+	}
+
+	public List<BoardReplyVO> selectReplyList(int seq) {
+		return boardDao.selectReplyList(seq);
 	}
 
 }
