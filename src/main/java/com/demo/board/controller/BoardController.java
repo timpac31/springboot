@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.demo.board.domain.BoardReplyVO;
@@ -118,6 +116,7 @@ public class BoardController {
 		try {
 			boardService.insertReply(boardReplyVO);
 		}catch(Exception e) {
+			logger.error("board/writeReply.do : " + e);
 			throw new BoardSQLException(e);
 		}
 		return "redirect:/board/view.do?seq=" + boardReplyVO.getReply_seq();
