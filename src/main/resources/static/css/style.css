@@ -23,6 +23,7 @@
 }
 .bbsview td { padding: 4px 5px 3px 5px; border-top: 1px solid #E0E0E0; background: #fff; text-align: left;}
 .bbsview td:nth-child(1) {background: #f3eafb;}
+.detailDialog {display:none; position: absolute; background-color: #ffffff; border: 1px solid; border-radius: 5px; padding:3px;}
 
 
 #footer { background:#e6e6e6; padding:20px; margin-top:50px; }
@@ -35,3 +36,4 @@
 .reply-group .reply-head {background-color: #e6e6e6e6; font-weight: bold; padding: 3px 10px;}
 .reply-group li { border-bottom: 1px solid #e6e6e6; padding: 10px;}
 .reply-group h5 span { color: #8a8a8a; margin-left:20px; font-size:13px; }
+

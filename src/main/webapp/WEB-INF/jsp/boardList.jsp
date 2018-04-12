@@ -46,7 +46,7 @@
 					<tr>
 						<td>${boardVO.seq }</td>
 						<td>${boardVO.name }</td>
-						<td><a href="/board/view.do?seq=${boardVO.seq}">${boardVO.title }</a></td>
+						<td><a href="/board/view.do?seq=${boardVO.seq}" data-seq="${boardVO.seq}">${boardVO.title }</a></td>
 						<td>${boardVO.homepage }</td>
 						<td>${boardVO.nowdate }</td>
 					</tr>
@@ -72,13 +72,55 @@
 				<a href="/board/writeForm.do" class="button" id="writeBtn">글쓰기</a>
 			</div>
 		</div>
+		
+		<div id="detailDialog" class="detailDialog"></div>
 
 	</div>
 	<!-- contents body end -->
 		
 <script>
 	$(function(){
-		$('select[name=searchType]').val('${page.searchType}');
+		$('select[name=searchType]').val('${page.searchType}');	
+		
+		
+		//제목에 마우스 1초이상 오버 했을 때 상세내용 창으로 보여주기 
+		var timeoutId; 
+		var x, y;
+		$('.table-default a').hover(function() {
+			x = event.pageX + 20; 
+			y = event.pageY;
+			var seq = this.getAttribute('data-seq');
+			
+		    if (!timeoutId) {
+		        timeoutId = window.setTimeout(function() {
+		            timeoutId = null;
+		            showDetail(seq);
+		       }, 1000);
+		    }
+		},
+		function () {
+		    if (timeoutId) {
+		        window.clearTimeout(timeoutId);
+		        timeoutId = null;
+		    }
+		    else {
+		    	$('#detailDialog').hide();
+		    }
+		});
+		
+		function showDetail(seq) {
+			$.ajax({
+				url: '/board/viewAjax1.do',
+				type: 'post',
+				data: {'seq' : seq},				
+			}).done(function(data){
+				$('#detailDialog').html(data.contentHtml).css({'left':x, 'top':y}).show();
+			}).fail(function(error){
+				console.log("ajax view error : ", error);
+			});
+		}
+
+		
 	});
 	
 	function goPage(no) {

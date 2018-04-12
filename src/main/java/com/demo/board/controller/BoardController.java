@@ -1,5 +1,6 @@
 package com.demo.board.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.demo.board.domain.BoardReplyVO;
@@ -120,6 +122,13 @@ public class BoardController {
 			throw new BoardSQLException(e);
 		}
 		return "redirect:/board/view.do?seq=" + boardReplyVO.getReply_seq();
+	}
+	
+	@RequestMapping("/board/viewAjax.do")
+	@ResponseBody
+	public BoardVO viewAjax(@RequestParam("seq") int seq, BoardVO boardVO) {
+		boardVO = boardService.selectBoardDetail(seq);
+		return boardVO;
 	}
 	
 
