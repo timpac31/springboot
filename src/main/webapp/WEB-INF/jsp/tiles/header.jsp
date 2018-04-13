@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri ="http://www.springframework.org/security/tags" prefix="sec" %>	
+<%@ page import="com.demo.mypage.domain.OAuthUser" %>
+<%@ taglib uri ="http://www.springframework.org/security/tags" prefix="sec" %>
+
 	<!-- header start -->
 	<div class="top-bar" id="responsive-menu">
 		<div class="top-bar-left">
@@ -42,5 +44,20 @@
 			</div>
 		</sec:authorize>
 		
+		<%
+			String user_name = ""; 
+			if(session.getAttribute("oAuthUser") != null) {
+				OAuthUser oAuthUser = (OAuthUser)session.getAttribute("oAuthUser");
+				user_name = oAuthUser.getName();
+			
+		
+		%>
+			<div class="top-bar-right">
+				<ul class="menu">
+					<li><%=user_name %></li>
+					<li><a href="/oAuthLogout.do" class="button">google logout</a></li>
+				</ul>
+			</div>
+		<%} %>
 	</div>
 	<!-- header end-->

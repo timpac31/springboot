@@ -20,8 +20,11 @@
 	            <label for="id">ID</label> <input type="text" name="id"/>
 	        	<label for="password">Password</label> <input type="password" name="password" autocomplete="new-password" />
 		        <input type="submit" class="button" value="로그인"/> <a href="<c:url value="/logout.do" />" class="button">logout</a>
+		        <a href="<c:url value="/googleLogin.do" />" class="success button">google로 로그인</a>
 		    </div>
         </div>
+
+		
         </form>
     </body>
     

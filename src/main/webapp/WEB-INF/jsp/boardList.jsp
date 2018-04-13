@@ -110,7 +110,7 @@
 		
 		function showDetail(seq) {
 			$.ajax({
-				url: '/board/viewAjax1.do',
+				url: '/board/viewAjax.do',
 				type: 'post',
 				data: {'seq' : seq},				
 			}).done(function(data){
