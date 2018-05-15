@@ -13,7 +13,7 @@
 		</div>	
 		
 		<div class="grid-x">	
-			<form:form name="writeFrm" commandName="boardVO" action="/board/modify.do" method="post" enctype="multipart/form-data" onsubmit="return validate(this);">
+			<form:form name="writeFrm" modelAttribute="boardVO" action="/board/modify.do" method="POST" enctype="multipart/form-data" onsubmit="return validate(this);">
 			<form:input type="hidden" path="seq" />
 			<table class="bbswrite">
 				<caption>글쓰기</caption>

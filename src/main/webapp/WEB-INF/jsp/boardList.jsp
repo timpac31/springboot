@@ -12,7 +12,7 @@
 			</div>
 		</div>	
 	
-		<form:form name="searchFrm" commandName="pageVO" action="/board/list.do" method="post" onsubmit="return validate(this);">
+		<form:form name="searchFrm" modelAttribute="pageVO" action="/board/list.do" method="POST" onsubmit="return validate(this);">
 		<form:input type="hidden" path="pageNo" value="1"/>
 			<div class="grid-x align-right">
 				<div class="medium-6 cell">
