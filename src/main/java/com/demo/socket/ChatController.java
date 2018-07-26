@@ -2,16 +2,18 @@ package com.demo.socket;
 
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.HtmlUtils;
 
-@Controller
+@RestController
 public class ChatController {
 	
 	@MessageMapping("/Hello")
 	@SendTo("/topic/greetings")
-	public HelloMessage Hello(HelloMessage message) throws Exception {
+	public Greeting Hello(HelloMessage message) throws Exception {
 		Thread.sleep(100);
-		return message;
+		System.out.println("message2:"+ message);
+		return new Greeting("Hello, " + HtmlUtils.htmlEscape(message.getName()) + "!");
 	}
 
 }
