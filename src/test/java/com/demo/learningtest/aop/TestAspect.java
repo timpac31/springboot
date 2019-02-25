@@ -32,8 +32,7 @@ public class TestAspect {
 	}
 	
 	@Pointcut("execution(* com.demo.board.service.*.*(..))")
-	public void onPointcut(JoinPoint joinPoint) {
-		logger.info("TestAspect @Pointcut : " + joinPoint);
+	public void onPointcut() {
 	}
 	
 	
